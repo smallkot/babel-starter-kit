@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import getUsername from './canonize';
 
 const app = express();
 app.use(cors());
@@ -9,9 +10,10 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/2A', (req, res) => {
-  const sum = (+req.query.a || 0) + (+req.query.b || 0);
-  res.send(sum.toString())
+app.get('/2C', (req, res) => {
+  const url = req.query.username
+  const username = getUsername(url);
+  res.send('@'+username);
 });
 
 app.listen(3000, () => {
